@@ -1,0 +1,33 @@
+---
+layout: default
+title: Projects
+---
+
+<div class="projects">
+  <h1>Projects</h1>
+  
+  <div class="project-grid">
+    {% assign projects = site.pages | where: "layout", "project" | sort: "date" | reverse %}
+    {% for project in projects %}
+    <div class="project-card">
+      <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
+      <div class="project-meta">
+        <time datetime="{{ project.date | date_to_xmlschema }}">
+          {{ project.date | date: "%B %Y" }}
+        </time>
+        {% if project.tags.size > 0 %}
+        <div class="project-tags">
+          {% for tag in project.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <p>{{ project.description }}</p>
+      {% if project.github %}
+      <a href="{{ project.github }}" class="button" target="_blank">View on GitHub</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div> 
